@@ -1,14 +1,17 @@
 import './styles.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Movie } from 'types/movie';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
+import { validateEmail } from 'utils/validate';
 
 
  type Props = {
    movieId : string;
  }
  function FormCard( { movieId } : Props ) {
+
+    const navigate = useNavigate();
 
   const [movie, setMovie] = useState<Movie>()
 
@@ -19,6 +22,35 @@ import axios from 'axios';
         });
     }, [movieId])
 
+
+    const handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
+
+      event.preventDefault();
+      
+      const email = (event.target as any).email.value;
+      const score = (event.target as any).score.value;
+      
+      if(!validateEmail(email)){
+        return;
+      }
+
+      const config: AxiosRequestConfig = {
+        baseURL: 'https://dsfilm.herokuapp.com/',    //trocar para BASE_URL
+        method: 'PUT',
+        url: '/scores',
+        data: {
+          email: email,
+          movieId: movieId,
+          score: score
+        }
+      }
+
+      axios(config).then(response => {
+        navigate("/");
+      });
+
+    }
+
   return (
     <div className='dsfilm-form-container'>
       <img
@@ -28,7 +60,7 @@ import axios from 'axios';
       />
       <div className='dsfilm-card-bottom-container'>
         <h3>{movie?.title}</h3>
-        <form className='dsfilm-form'>
+        <form className='dsfilm-form' onSubmit={handleSubmit}>
           <div className='form-group dsfilm-form-group'>
             <label htmlFor='email'>Informe seu email</label>
             <input type='email' className='form-control' id='email' />
