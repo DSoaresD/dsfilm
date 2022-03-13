@@ -22,7 +22,7 @@ function Listing() {
 
   useEffect(() => {
     axios
-      .get(`https://dsfilm.herokuapp.com/movies?size=12&page=${pageNumber}&sort=id`)  //trocar por ${BASE_URL}
+      .get(`${BASE_URL}/movies?size=12&page=${pageNumber}&sort=id`)  //trocar por ${BASE_URL}
       .then((response) => {
         const data = response.data as MoviePage;
         setPage(data);

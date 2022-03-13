@@ -4,6 +4,7 @@ import { Movie } from 'types/movie';
 import { useEffect, useState } from 'react';
 import axios, { AxiosRequestConfig } from 'axios';
 import { validateEmail } from 'utils/validate';
+import { BASE_URL } from 'utils/requests';
 
 
  type Props = {
@@ -16,7 +17,7 @@ import { validateEmail } from 'utils/validate';
   const [movie, setMovie] = useState<Movie>()
 
     useEffect(() => {
-        axios.get(`https://dsfilm.herokuapp.com/movies/${movieId}`)      //trocar pro ${BASE_URL}
+        axios.get(`${BASE_URL}/movies/${movieId}`)      //trocar pro ${BASE_URL}
         .then(response => {
             setMovie(response.data);
         });
@@ -35,7 +36,7 @@ import { validateEmail } from 'utils/validate';
       }
 
       const config: AxiosRequestConfig = {
-        baseURL: 'https://dsfilm.herokuapp.com/',    //trocar para BASE_URL
+        baseURL: BASE_URL,    //trocar para BASE_URL
         method: 'PUT',
         url: '/scores',
         data: {
