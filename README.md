@@ -37,11 +37,11 @@ A aplicação consiste em exibir uma lista de filmes paginada a partir de dados 
 - **Spring Boot**
 - **Hibernate JPA**
 - **React**
-       React Hooks
-       useState
-       useEffect
-       useParams
-       useNavigate
+       React Hooks,
+       useState,
+       useEffect,
+       useParams,
+       useNavigate.
 - **Bootstrap**
 - **Typescript**
 - **H2 Database**
